@@ -6,7 +6,7 @@
     <header
         android:fragment="com.sealiu.memo.SettingsActivity$StudyPlaneFragment"
         android:icon="@mipmap/ic_assignment_black_24dp"
-        android:title="@string/set_study_plan" />
+        android:title="@string/pref_header_study_plan" />
 
     <header
         android:fragment="com.sealiu.memo.SettingsActivity$NotificationPreferenceFragment"
@@ -16,7 +16,7 @@
     <header
         android:fragment="com.sealiu.memo.SettingsActivity$LanguageFontPreferenceFragment"
         android:icon="@mipmap/ic_font_download_black_24dp"
-        android:title="@string/set_font" />
+        android:title="@string/pref_header_font" />
 
     <header
         android:fragment="com.sealiu.memo.SettingsActivity$DataSyncPreferenceFragment"
@@ -26,6 +26,6 @@
     <header
         android:fragment="com.sealiu.memo.SettingsActivity$AboutPreferenceFragment"
         android:icon="@mipmap/ic_info_outline_black_24dp"
-        android:title="@string/set_about_memo" />
+        android:title="@string/pref_header_about" />
 
 </preference-headers>
