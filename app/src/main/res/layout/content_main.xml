@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,69 +10,143 @@
     tools:showIn="@layout/app_bar_main"
     android:orientation="vertical"
     tools:context="com.sealiu.memo.MainActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="16dp"
-        android:background="@android:color/holo_blue_light">
-        <TextView
+        android:orientation="vertical">
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="  Task"
-            android:textColor="@android:color/black"
-            android:textAllCaps="true"
-            android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/ic_playlist_add_check_black_24dp"
-            android:padding="8dp"/>
+            android:layout_margin="16dp"
+            android:background="@android:color/white"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/task_image"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginRight="16dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_playlist_add_check_black_24dp" />
+                    <TextView
+                        android:id="@+id/task_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today's Task"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryText"
+                        android:textAllCaps="true"
+                        android:textSize="16sp"
+                        android:layout_toRightOf="@+id/task_image"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2016-5-4"
+                        android:textColor="@color/secondaryText"
+                        android:textSize="16sp"
+                        android:layout_below="@+id/task_title"
+                        android:layout_toRightOf="@id/task_image"/>
+                </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/holo_blue_dark"/>
+                <TextView
+                    android:id="@+id/task_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="New Words: 100\n\nReview Words: 200"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="14sp" />
 
-        <TextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_margin="8dp">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/colorAccent"
+                        android:text="Learn"
+                        android:textStyle="bold"
+                        android:background="@android:color/transparent"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/secondaryText"
+                        android:text="Replant"
+                        android:background="@android:color/transparent"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="New Words: 100\n\nReview Words: 200"
-            android:textColor="@android:color/black"/>
+            android:layout_margin="16dp"
+            android:background="@android:color/white"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardElevation="2dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/android_header"
+                    android:scaleType="centerCrop"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Words Book's Name"
+                    android:textSize="16sp"
+                    android:textColor="@color/primaryText"
+                    android:textStyle="bold"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Words Book Description"
+                    android:textSize="16sp"
+                    android:textColor="@color/secondaryText"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="8dp"
+                    android:gravity="right">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="More"
+                        android:textColor="@color/secondaryText"
+                        android:background="@android:color/transparent"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:orientation="vertical"
-        android:layout_margin="16dp"
-        android:background="@android:color/holo_green_light">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="  Words Book"
-            android:textColor="@android:color/black"
-            android:padding="8dp"
-            android:drawableLeft="@mipmap/ic_library_books_black_24dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/holo_green_dark"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="Words Book Name (xx / xx / xx)"
-            android:textColor="@android:color/black"/>
-    </LinearLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@android:color/holo_orange_light"
-        android:text="Learn Now"/>
-</LinearLayout>
+</ScrollView>
