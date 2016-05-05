@@ -101,17 +101,18 @@
             android:background="@android:color/white"
             card_view:cardCornerRadius="2dp"
             card_view:cardElevation="2dp">
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
                 <ImageView
+                    android:id="@+id/words_book_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/android_header"
                     android:scaleType="centerCrop"
                     />
                 <TextView
+                    android:id="@+id/words_book_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Words Book's Name"
@@ -120,22 +121,26 @@
                     android:textStyle="bold"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="16dp"/>
+                    android:paddingTop="16dp"
+                    android:layout_below="@+id/words_book_image"/>
                 <TextView
+                    android:id="@+id/words_book_subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Words Book Description"
                     android:textSize="16sp"
                     android:textColor="@color/secondaryText"
                     android:paddingLeft="16dp"
-                    android:paddingRight="16dp"/>
+                    android:paddingRight="16dp"
+                    android:layout_below="@+id/words_book_title"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_margin="8dp"
-                    android:gravity="right">
+                    android:gravity="right"
+                    android:layout_below="@+id/words_book_subtitle">
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -144,8 +149,38 @@
                         android:background="@android:color/transparent"
                         android:foreground="?android:attr/selectableItemBackgroundBorderless"/>
                 </LinearLayout>
-
-            </LinearLayout>
+                <com.getbase.floatingactionbutton.FloatingActionsMenu
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/words_book_subtitle"
+                    android:layout_alignRight="@+id/words_book_image"
+                    android:layout_marginTop="-28dp"
+                    app:fab_addButtonColorNormal="@color/colorAccent"
+                    app:fab_addButtonColorPressed="@color/colorAccentDark"
+                    app:fab_addButtonPlusIconColor="@android:color/white"
+                    app:fab_labelStyle="@style/menu_labels_style">
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/note_add_fab"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="@dimen/fab_margin"
+                        android:src="@mipmap/ic_note_add_white_24dp"
+                        app:fab_size="mini"
+                        app:fab_title="Add A Note"
+                        app:fab_colorNormal="@color/colorAccent"
+                        app:fab_colorPressed="@color/colorAccentDark"/>
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/lib_add_fab"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_margin="@dimen/fab_margin"
+                        android:src="@mipmap/ic_library_add_white_24dp"
+                        app:fab_size="mini"
+                        app:fab_title="Add A Words Book"
+                        app:fab_colorNormal="@color/colorAccent"
+                        app:fab_colorPressed="@color/colorAccentDark"/>
+                </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
 
