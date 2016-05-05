@@ -1,5 +1,6 @@
 package com.sealiu.memo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -36,8 +37,10 @@ public class MainActivity extends AppCompatActivity
         noteFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "noteFab Clicked", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "noteFab Clicked", Snackbar.LENGTH_SHORT)
+//                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, AddNote.class);
+                startActivity(intent);
             }
         });
 
