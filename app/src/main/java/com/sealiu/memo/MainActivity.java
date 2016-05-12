@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ListViewLoader.class);
+                Intent intent = new Intent(MainActivity.this, WordsBookList.class);
                 startActivity(intent);
             }
         });
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_words_book) {
-            Intent intent = new Intent(MainActivity.this, ListViewLoader.class);
+            Intent intent = new Intent(MainActivity.this, WordsBookList.class);
             startActivity(intent);
         } else if (id == R.id.nav_trend) {
 
