@@ -141,6 +141,7 @@
                     android:gravity="right"
                     android:layout_below="@+id/words_book_subtitle">
                     <Button
+                        android:id="@+id/more_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="More"
