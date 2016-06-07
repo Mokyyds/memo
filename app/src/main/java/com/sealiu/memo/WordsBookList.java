@@ -1,7 +1,6 @@
 package com.sealiu.memo;
 
 import android.app.ListActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.SimpleAdapter;
 
