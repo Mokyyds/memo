@@ -8,20 +8,38 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.getbase.floatingactionbutton.*;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+//    private static final String TAG = "TEST";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        bookService bookService = new bookDao(MainActivity.this);
+//        Object[] params = {"GET", "4"};
+//        boolean flag = bookService.addBook(params);
+//        Log.i(TAG, String.valueOf(flag));
+//
+//        String[] selectionArgs = {"1"};
+//        Map<String, String> map = bookService.viewBook(selectionArgs);
+//        Log.i(TAG, map.toString());
+//
+//        Object[] params1 = {"GET", "6"};
+//        boolean flag1 = bookService.addBook(params1);
+//        Log.i(TAG, String.valueOf(flag1));
+//
+//        List<Map<String, String>> list = bookService.listBooks(null);
+//        Log.i(TAG, list.toString());
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,8 +57,8 @@ public class MainActivity extends AppCompatActivity
         noteFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "noteFab Clicked", Snackbar.LENGTH_SHORT)
-//                        .setAction("Action", null).show();
+                Snackbar.make(view, "noteFab Clicked", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, AddNote.class);
                 startActivity(intent);
             }
