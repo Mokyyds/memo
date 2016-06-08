@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,9 +27,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         bookService bookService = new bookDao(MainActivity.this);
-        Object[] params = {"GET", "4"};
-        boolean flag = bookService.addBook(params);
-        Log.i(TAG, String.valueOf(flag));
+//        noteService noteService = new noteDao(MainActivity.this);
+
+//        Object[] params = {"GET", "4"};
+//        boolean flag = bookService.addBook(params);
+//        Log.i(TAG, String.valueOf(flag));
 //
 //        String[] selectionArgs = {"1"};
 //        Map<String, String> map = bookService.viewBook(selectionArgs);
