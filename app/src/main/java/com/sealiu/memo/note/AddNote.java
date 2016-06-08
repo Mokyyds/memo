@@ -1,4 +1,4 @@
-package com.sealiu.memo;
+package com.sealiu.memo.note;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.sealiu.memo.R;
 
 public class AddNote extends AppCompatActivity {
 

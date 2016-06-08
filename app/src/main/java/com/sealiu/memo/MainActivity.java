@@ -9,13 +9,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.sealiu.memo.DB.bookDao;
-import com.sealiu.memo.DB.bookService;
+import com.sealiu.memo.book.bookDao;
+import com.sealiu.memo.book.bookService;
+import com.sealiu.memo.note.AddNote;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,8 +51,28 @@ public class MainActivity extends AppCompatActivity
 //        Log.i(TAG, list.toString());
 
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Show current date below the TextView of "Today's Task"
+        TextView dateTodayTV = (TextView) findViewById(R.id.date_today);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+        dateTodayTV.setText(sdf.format(new Date()));
+
+        // Task's Content
+        TextView taskContentTV = (TextView) findViewById(R.id.task_content);
+        Button learnBTN = (Button) findViewById(R.id.learn_btn);
+        Button settingBTN = (Button) findViewById(R.id.setting_btn);
+
+        Log.i(TAG, bookService.count() + "");
+        if (bookService.count() == 0) {
+            taskContentTV.setText(R.string.empty_memoBook_info);
+            learnBTN.setClickable(false);
+            learnBTN.setTextColor(getResources().getColor(R.color.disabledText));
+            settingBTN.setClickable(false);
+            settingBTN.setTextColor(getResources().getColor(R.color.disabledText));
+        }
 
         FloatingActionButton libFab = (FloatingActionButton) findViewById(R.id.lib_add_fab);
         libFab.setOnClickListener(new View.OnClickListener() {

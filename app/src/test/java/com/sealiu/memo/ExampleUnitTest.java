@@ -2,7 +2,7 @@ package com.sealiu.memo;
 
 import android.test.AndroidTestCase;
 
-import com.sealiu.memo.DB.memoDbHelper;
+import com.sealiu.memo._DB.memoDbHelper;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.

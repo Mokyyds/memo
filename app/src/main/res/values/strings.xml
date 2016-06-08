@@ -6,4 +6,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--MainActivity-->
+    <string name="task_title">Today\'s Task</string>
+    <string name="empty_memoBook_info">You do not have a memoBook!</string>
+    <string name="learn_btn">Learn</string>
+    <string name="setting_btn">Setting</string>
+
 </resources>

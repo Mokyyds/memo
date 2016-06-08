@@ -1,4 +1,4 @@
-package com.sealiu.memo.DB;
+package com.sealiu.memo.book;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,13 @@ import java.util.Map;
  * on 6/7/16.
  */
 public interface bookService {
+
+    /**
+     * fetch the number of memoBooks;
+     *
+     * @return number of memoBooks;
+     */
+    int count();
 
     /**
      * add a memoBook, which used to record the info of a set of notes;

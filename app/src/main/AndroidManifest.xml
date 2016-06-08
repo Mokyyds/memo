@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddNote"
+            android:name=".note.AddNote"
             android:label="@string/add_a_note"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".WordsBookList"></activity>

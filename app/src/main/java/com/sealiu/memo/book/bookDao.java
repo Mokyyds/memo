@@ -1,8 +1,10 @@
-package com.sealiu.memo.DB;
+package com.sealiu.memo.book;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.sealiu.memo._DB.memoDbHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,32 +13,46 @@ import java.util.Map;
 
 /**
  * Created by root
- * on 6/8/16.
+ * on 6/7/16.
  */
-public class noteDao implements noteService {
+public class bookDao implements bookService {
 
     private memoDbHelper helper = null;
 
-    public noteDao(Context context) {
+    public bookDao(Context context) {
         helper = new memoDbHelper(context);
     }
 
     @Override
-    public boolean addNote(Object[] params) {
+    public int count() {
+        int num = 0;
+        SQLiteDatabase db = null;
+        try {
+            String sql = "SELECT COUNT(id) FROM memoBook";
+            db = helper.getWritableDatabase();
+            Cursor cursor = db.rawQuery(sql, null);
+            num = cursor.getCount();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) db.close();
+        }
+        return num;
+    }
+
+    @Override
+    public boolean addBook(Object[] params) {
         boolean flag = false;
         SQLiteDatabase db = null;
         try {
             String sql =
-                    "INSERT INTO memoNote(" +
-                            "book_id, " +
-                            "front," +
-                            "back," +
+                    "INSERT INTO memoBook(" +
+                            "name, " +
+                            "desc," +
                             "status," +
-                            "e_f," +
-                            "interval," +
                             "created_time," +
                             "modified_time," +
-                            "access_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                            "access_time) values (?, ?, ?, ?, ?, ?)";
             db = helper.getWritableDatabase();
             db.execSQL(sql, params);
             flag = true;
@@ -49,11 +65,11 @@ public class noteDao implements noteService {
     }
 
     @Override
-    public boolean delNote(Object[] params) {
+    public boolean delBook(Object[] params) {
         boolean flag = false;
         SQLiteDatabase db = null;
         try {
-            String sql = "DELETE FROM memoNote WHERE id = ?";
+            String sql = "DELETE FROM memoBook WHERE id = ?";
             db = helper.getWritableDatabase();
             db.execSQL(sql, params);
             flag = true;
@@ -66,17 +82,14 @@ public class noteDao implements noteService {
     }
 
     @Override
-    public boolean updateNote(Object[] params) {
+    public boolean updateBook(Object[] params) {
         boolean flag = false;
         SQLiteDatabase db = null;
         try {
-            String sql = "UPDATE memoNote SET " +
-                    "book_id = ?," +
-                    "front = ?," +
-                    "back = ?," +
+            String sql = "UPDATE memoBook SET " +
+                    "name = ?, " +
+                    "desc = ?, " +
                     "status = ?," +
-                    "e_f = ?," +
-                    "interval = ?," +
                     "modified_time = ?" +
                     "WHERE id = ?";
             db = helper.getWritableDatabase();
@@ -91,11 +104,11 @@ public class noteDao implements noteService {
     }
 
     @Override
-    public Map<String, String> viewNote(String[] selectionArgs) {
+    public Map<String, String> viewBook(String[] selectionArgs) {
         Map<String, String> map = new HashMap<>();
         SQLiteDatabase db = null;
         try {
-            String sql = "SELECT * FROM memoNote WHERE id = ?";
+            String sql = "SELECT * FROM memoBook WHERE id = ?";
             db = helper.getWritableDatabase();
             Cursor cursor = db.rawQuery(sql, selectionArgs);
 
@@ -117,12 +130,12 @@ public class noteDao implements noteService {
     }
 
     @Override
-    public List<Map<String, String>> listNotes() {
+    public List<Map<String, String>> listBooks() {
         List<Map<String, String>> list = new ArrayList<>();
 
         SQLiteDatabase db = null;
         try {
-            String sql = "SELECT * FROM memoNote";
+            String sql = "SELECT * FROM memoBook";
             db = helper.getWritableDatabase();
             Cursor cursor = db.rawQuery(sql, null);
 

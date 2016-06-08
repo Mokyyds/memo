@@ -1,4 +1,4 @@
-package com.sealiu.memo.DB;
+package com.sealiu.memo._DB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

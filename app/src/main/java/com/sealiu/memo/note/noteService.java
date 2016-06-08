@@ -1,4 +1,4 @@
-package com.sealiu.memo.DB;
+package com.sealiu.memo.note;
 
 import java.util.List;
 import java.util.Map;
