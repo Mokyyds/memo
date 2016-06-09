@@ -21,4 +21,11 @@
     <string name="learn_btn">Learn</string>
     <string name="setting_btn">Setting</string>
     <string name="all_book_btn">All my memoBooks</string>
+
+    <!--Custom dialog-->
+    <string name="input_book_name">Book Name</string>
+    <string name="input_book_desc">Book Description</string>
+    <string name="input_status">is active?</string>
+    <string name="positive_btn">OK</string>
+    <string name="negative_btn">Cancel</string>
 </resources>

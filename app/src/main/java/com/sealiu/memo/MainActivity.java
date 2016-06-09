@@ -3,7 +3,6 @@ package com.sealiu.memo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,10 +16,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.sealiu.memo.book.AddBook;
+import com.sealiu.memo.book.AddBookDialogFragment;
 import com.sealiu.memo.book.bookDao;
 import com.sealiu.memo.book.bookService;
-import com.sealiu.memo.note.AddNote;
+import com.sealiu.memo.note.AddNoteDialogFragment;
+import com.sealiu.memo.note.noteDao;
+import com.sealiu.memo.note.noteService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,25 +38,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         bookService bookService = new bookDao(MainActivity.this);
-//        noteService noteService = new noteDao(MainActivity.this);
+        noteService noteService = new noteDao(MainActivity.this);
 
-//        Object[] params = {1};
-//        boolean flag = bookService.delBook(params);
-//        Log.i(TAG, "delBook: " + String.valueOf(flag));
-
-
-//        Object[] params = {"GET", "4", 1, "2016-6-9", "2016-6-9", null};
-//        boolean flag = bookService.addBook(params);
-//        Log.i(TAG, "addBook: " + flag);
-//
-//        String[] selectionArgs = {"1"};
-//        Map<String, String> map = bookService.viewBook(selectionArgs);
-//        Log.i(TAG, map.toString());
-//
-//        Object[] params1 = {"GET", "6"};
-//        boolean flag1 = bookService.addBook(params1);
-//        Log.i(TAG, String.valueOf(flag1));
-//
         List<Map<String, String>> list = bookService.listBooks();
         Log.i(TAG, "listBooks: " + list.toString());
 
@@ -75,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         Button settingBTN = (Button) findViewById(R.id.setting_btn);
 
         int disabledColor = ContextCompat.getColor(this, R.color.disabledText);
-        int primaryColor = ContextCompat.getColor(this, R.color.colorPrimary);
+        int primaryColor = ContextCompat.getColor(this, R.color.colorAccent);
 
         Log.i(TAG, "bookCount: " + bookService.count());
         if (bookService.count() == 0 || list.isEmpty()) {
@@ -117,8 +101,8 @@ public class MainActivity extends AppCompatActivity
         libFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddBook.class);
-                startActivity(intent);
+                new AddBookDialogFragment()
+                        .show(getFragmentManager(), "addBook_dialog_fragment");
             }
         });
 
@@ -126,10 +110,8 @@ public class MainActivity extends AppCompatActivity
         noteFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "noteFab Clicked", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-                Intent intent = new Intent(MainActivity.this, AddNote.class);
-                startActivity(intent);
+                new AddNoteDialogFragment()
+                        .show(getFragmentManager(), "addNote_dialog_fragment");
             }
         });
 
