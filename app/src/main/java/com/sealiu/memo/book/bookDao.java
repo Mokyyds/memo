@@ -24,6 +24,32 @@ public class bookDao implements bookService {
     }
 
     @Override
+    public Map<String, String> getActiveBook() {
+        Map<String, String> map = new HashMap<>();
+        SQLiteDatabase db = null;
+        try {
+            String sql = "SELECT * FROM memoBook WHERE status = 1";
+            db = helper.getWritableDatabase();
+            Cursor cursor = db.rawQuery(sql, null);
+
+            int columns = cursor.getColumnCount();
+            while (cursor.moveToNext()) {
+                for (int i = 0; i < columns; i++) {
+                    String columnName = cursor.getColumnName(i);
+                    String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
+                    if (columnValue == null) columnValue = "";
+                    map.put(columnName, columnValue);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) db.close();
+        }
+        return map;
+    }
+
+    @Override
     public int count() {
         int num = 0;
         SQLiteDatabase db = null;

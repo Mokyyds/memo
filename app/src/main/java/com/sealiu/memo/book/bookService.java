@@ -10,6 +10,13 @@ import java.util.Map;
 public interface bookService {
 
     /**
+     * fetch an active memoBook;
+     *
+     * @return a map which contains the memoBook's column name and value;
+     */
+    Map<String, String> getActiveBook();
+
+    /**
      * fetch the number of memoBooks;
      *
      * @return number of memoBooks;

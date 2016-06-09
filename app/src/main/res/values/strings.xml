@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">memo</string>
     <string name="add_a_note">Add A Note</string>
+    <string name="add_a_book">Add A Book</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,8 +10,15 @@
 
     <!--MainActivity-->
     <string name="task_title">Today\'s Task</string>
-    <string name="empty_memoBook_info">You do not have a memoBook!</string>
+    <string name="no_memoBook_info">You do not have a memoBook yet!</string>
+    <string name="no_memoBook_suggest">You can create anyone, click the right button and create a memoBook.</string>
+
+    <string name="no_activeBook_info">You do not have any one memoBook in active!</string>
+    <string name="no_activeBook_suggest">
+        You can view all the memoBooks, and select one of these books.
+    </string>
+
     <string name="learn_btn">Learn</string>
     <string name="setting_btn">Setting</string>
-
+    <string name="all_book_btn">All my memoBooks</string>
 </resources>

@@ -26,7 +26,7 @@ public class memoDbHelper extends SQLiteOpenHelper {
                         "desc TEXT, " +
                         "status INTEGER DEFAULT 0, " +
                         "created_time TEXT, " +
-                        "modified_time TEXT" +
+                        "modified_time TEXT," +
                         "access_time TEXT)";
         db.execSQL(createTableMemoBook);
 
@@ -38,9 +38,9 @@ public class memoDbHelper extends SQLiteOpenHelper {
                         "back TEXT NOT NULL UNIQUE, " +
                         "status INTEGER DEFAULT 0, " +// status=0: new
                         "e_f REAL DEFAULT 2.5, " +
-                        "interval REAL 0.0, " +
+                        "interval REAL DEFAULT 0, " +
                         "created_time TEXT, " +
-                        "modified_time TEXT" +
+                        "modified_time TEXT," +
                         "access_time TEXT," +
                         "FOREIGN KEY(book_id) REFERENCES memoBook(id))";
         db.execSQL(createTableMemoNote);

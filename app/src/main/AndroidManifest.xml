@@ -22,7 +22,13 @@
             android:name=".note.AddNote"
             android:label="@string/add_a_note"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".WordsBookList"></activity>
+
+        <activity
+            android:name=".book.AddBook"
+            android:label="@string/add_a_book"
+            android:parentActivityName=".MainActivity" />
+
+        <activity android:name=".WordsBookList" />
     </application>
 
 </manifest>

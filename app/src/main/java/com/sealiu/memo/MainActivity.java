@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,17 +17,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.sealiu.memo.book.AddBook;
 import com.sealiu.memo.book.bookDao;
 import com.sealiu.memo.book.bookService;
 import com.sealiu.memo.note.AddNote;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = "TEST";
+    public static final String TAG = "TEST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +39,14 @@ public class MainActivity extends AppCompatActivity
         bookService bookService = new bookDao(MainActivity.this);
 //        noteService noteService = new noteDao(MainActivity.this);
 
-//        Object[] params = {"GET", "4"};
+//        Object[] params = {1};
+//        boolean flag = bookService.delBook(params);
+//        Log.i(TAG, "delBook: " + String.valueOf(flag));
+
+
+//        Object[] params = {"GET", "4", 1, "2016-6-9", "2016-6-9", null};
 //        boolean flag = bookService.addBook(params);
-//        Log.i(TAG, String.valueOf(flag));
+//        Log.i(TAG, "addBook: " + flag);
 //
 //        String[] selectionArgs = {"1"};
 //        Map<String, String> map = bookService.viewBook(selectionArgs);
@@ -47,8 +56,8 @@ public class MainActivity extends AppCompatActivity
 //        boolean flag1 = bookService.addBook(params1);
 //        Log.i(TAG, String.valueOf(flag1));
 //
-//        List<Map<String, String>> list = bookService.listBooks(null);
-//        Log.i(TAG, list.toString());
+        List<Map<String, String>> list = bookService.listBooks();
+        Log.i(TAG, "listBooks: " + list.toString());
 
         setContentView(R.layout.activity_main);
 
@@ -65,21 +74,51 @@ public class MainActivity extends AppCompatActivity
         Button learnBTN = (Button) findViewById(R.id.learn_btn);
         Button settingBTN = (Button) findViewById(R.id.setting_btn);
 
-        Log.i(TAG, bookService.count() + "");
-        if (bookService.count() == 0) {
-            taskContentTV.setText(R.string.empty_memoBook_info);
+        int disabledColor = ContextCompat.getColor(this, R.color.disabledText);
+        int primaryColor = ContextCompat.getColor(this, R.color.colorPrimary);
+
+        Log.i(TAG, "bookCount: " + bookService.count());
+        if (bookService.count() == 0 || list.isEmpty()) {
+            taskContentTV.setText(R.string.no_memoBook_info);
             learnBTN.setClickable(false);
-            learnBTN.setTextColor(getResources().getColor(R.color.disabledText));
+            learnBTN.setTextColor(disabledColor);
             settingBTN.setClickable(false);
-            settingBTN.setTextColor(getResources().getColor(R.color.disabledText));
+            settingBTN.setTextColor(disabledColor);
+        }
+
+        // Active memoBook
+        TextView memoBookTitleTV = (TextView) findViewById(R.id.memoBook_title);
+        TextView memoBookSubTitleTV = (TextView) findViewById(R.id.memoBook_subtitle);
+        Button allMemoBooksBTN = (Button) findViewById(R.id.allMemoBooks_btn);
+        if (bookService.count() == 0 || list.isEmpty()) {
+            memoBookTitleTV.setText(R.string.no_memoBook_info);
+            memoBookSubTitleTV.setText(R.string.no_memoBook_suggest);
+            allMemoBooksBTN.setTextColor(disabledColor);
+        } else { // already have some memoBooks, but no one is active.
+            Map<String, String> activeBook = bookService.getActiveBook();
+            if (activeBook != null) {
+
+                Log.i(TAG, "activeBook: " + activeBook.toString());
+
+                memoBookTitleTV.setText(activeBook.get("name"));
+
+                memoBookSubTitleTV.setText(
+                        activeBook.get("desc") == null ? "No Description" : activeBook.get("desc")
+                );
+
+            } else {
+                memoBookTitleTV.setText(R.string.no_activeBook_info);
+                memoBookSubTitleTV.setText(R.string.no_activeBook_suggest);
+                allMemoBooksBTN.setTextColor(primaryColor);
+            }
         }
 
         FloatingActionButton libFab = (FloatingActionButton) findViewById(R.id.lib_add_fab);
         libFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "libFab Clicked", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, AddBook.class);
+                startActivity(intent);
             }
         });
 
@@ -103,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button moreBtn = (Button) findViewById(R.id.more_btn);
+        Button moreBtn = (Button) findViewById(R.id.allMemoBooks_btn);
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

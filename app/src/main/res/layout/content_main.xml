@@ -114,7 +114,7 @@
                     android:src="@drawable/android_header"
                     android:scaleType="centerCrop" />
                 <TextView
-                    android:id="@+id/words_book_title"
+                    android:id="@+id/memoBook_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Words Book's Name"
@@ -126,7 +126,7 @@
                     android:paddingTop="16dp"
                     android:layout_below="@+id/words_book_image"/>
                 <TextView
-                    android:id="@+id/words_book_subtitle"
+                    android:id="@+id/memoBook_subtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Words Book Description"
@@ -134,7 +134,7 @@
                     android:textColor="@color/secondaryText"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:layout_below="@+id/words_book_title"/>
+                    android:layout_below="@+id/memoBook_title" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -142,12 +142,12 @@
                     android:orientation="horizontal"
                     android:layout_margin="8dp"
                     android:gravity="end"
-                    android:layout_below="@+id/words_book_subtitle">
+                    android:layout_below="@+id/memoBook_subtitle">
                     <Button
-                        android:id="@+id/more_btn"
+                        android:id="@+id/allMemoBooks_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="More"
+                        android:text="@string/all_book_btn"
                         android:textColor="@color/secondaryText"
                         android:background="@android:color/transparent"
                         android:foreground="?android:attr/selectableItemBackgroundBorderless"
@@ -156,7 +156,7 @@
                 <com.getbase.floatingactionbutton.FloatingActionsMenu
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/words_book_subtitle"
+                    android:layout_above="@+id/memoBook_subtitle"
                     android:layout_alignEnd="@+id/words_book_image"
                     android:layout_marginTop="-28dp"
                     app:fab_addButtonColorNormal="@color/colorAccent"
@@ -168,17 +168,17 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_margin="@dimen/fab_margin"
-                        android:src="@mipmap/ic_note_add_white_24dp"
+                        android:src="@mipmap/ic_note_add_white_18dp"
                         app:fab_size="mini"
                         app:fab_title="Add A Note"
                         app:fab_colorNormal="@color/colorAccent"
                         app:fab_colorPressed="@color/colorAccentDark"/>
                     <com.getbase.floatingactionbutton.FloatingActionButton
                         android:id="@+id/lib_add_fab"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_margin="@dimen/fab_margin"
-                        android:src="@mipmap/ic_library_add_white_24dp"
+                        android:src="@mipmap/ic_library_add_white_18dp"
                         app:fab_size="mini"
                         app:fab_title="Add A Words Book"
                         app:fab_colorNormal="@color/colorAccent"
