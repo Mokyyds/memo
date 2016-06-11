@@ -6,15 +6,17 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.sealiu.memo.MainActivity;
 import com.sealiu.memo.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddBookDialogFragment extends DialogFragment {
 
@@ -54,15 +56,37 @@ public class AddBookDialogFragment extends DialogFragment {
                 String bookName = String.valueOf(bookNameET.getText());
                 String bookDesc = String.valueOf(bookDescET.getText());
                 boolean isActive = status.isChecked();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String now = sdf.format(new Date());
 
-                Log.i(MainActivity.TAG, bookName + " " + bookDesc + " " + String.valueOf(isActive));
+                BookService bookService = new BookDao(getActivity());
+                Object[] params = {
+                        bookName,
+                        bookDesc,
+                        isActive,
+                        now,
+                        now,
+                        ""
+                };
+                boolean flag = bookService.addBook(params);
+                if (flag)
+                    Toast.makeText(
+                            getActivity(),
+                            R.string.add_book_success_toast,
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(
+                            getActivity(),
+                            R.string.add_book_fail_toast,
+                            Toast.LENGTH_SHORT).show();
             }
-        })
-                .setNegativeButton(R.string.negative_btn, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        AddBookDialogFragment.this.getDialog().cancel();
-                    }
-                });
+        }).setNegativeButton(R.string.negative_btn, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                AddBookDialogFragment.this.getDialog().cancel();
+            }
+        });
         return builder.create();
     }
 

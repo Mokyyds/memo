@@ -1,4 +1,4 @@
-package com.sealiu.memo.book;
+package com.sealiu.memo.note;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -13,72 +13,32 @@ import java.util.Map;
 
 /**
  * Created by root
- * on 6/7/16.
+ * on 6/8/16.
  */
-public class bookDao implements bookService {
+public class NoteDao implements NoteService {
 
     private memoDbHelper helper = null;
 
-    public bookDao(Context context) {
+    public NoteDao(Context context) {
         helper = new memoDbHelper(context);
     }
 
     @Override
-    public Map<String, String> getActiveBook() {
-        Map<String, String> map = new HashMap<>();
-        SQLiteDatabase db = null;
-        try {
-            String sql = "SELECT * FROM memoBook WHERE status = 1";
-            db = helper.getWritableDatabase();
-            Cursor cursor = db.rawQuery(sql, null);
-
-            int columns = cursor.getColumnCount();
-            while (cursor.moveToNext()) {
-                for (int i = 0; i < columns; i++) {
-                    String columnName = cursor.getColumnName(i);
-                    String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
-                    if (columnValue == null) columnValue = "";
-                    map.put(columnName, columnValue);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db != null) db.close();
-        }
-        return map;
-    }
-
-    @Override
-    public int count() {
-        int num = 0;
-        SQLiteDatabase db = null;
-        try {
-            String sql = "SELECT COUNT(id) FROM memoBook";
-            db = helper.getWritableDatabase();
-            Cursor cursor = db.rawQuery(sql, null);
-            num = cursor.getCount();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db != null) db.close();
-        }
-        return num;
-    }
-
-    @Override
-    public boolean addBook(Object[] params) {
+    public boolean addNote(Object[] params) {
         boolean flag = false;
         SQLiteDatabase db = null;
         try {
             String sql =
-                    "INSERT INTO memoBook(" +
-                            "name, " +
-                            "desc," +
+                    "INSERT INTO memoNote(" +
+                            "book_id, " +
+                            "front," +
+                            "back," +
                             "status," +
+                            "e_f," +
+                            "interval," +
                             "created_time," +
                             "modified_time," +
-                            "access_time) values (?, ?, ?, ?, ?, ?)";
+                            "access_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             db = helper.getWritableDatabase();
             db.execSQL(sql, params);
             flag = true;
@@ -91,11 +51,11 @@ public class bookDao implements bookService {
     }
 
     @Override
-    public boolean delBook(Object[] params) {
+    public boolean delNote(Object[] params) {
         boolean flag = false;
         SQLiteDatabase db = null;
         try {
-            String sql = "DELETE FROM memoBook WHERE id = ?";
+            String sql = "DELETE FROM memoNote WHERE id = ?";
             db = helper.getWritableDatabase();
             db.execSQL(sql, params);
             flag = true;
@@ -108,14 +68,17 @@ public class bookDao implements bookService {
     }
 
     @Override
-    public boolean updateBook(Object[] params) {
+    public boolean updateNote(Object[] params) {
         boolean flag = false;
         SQLiteDatabase db = null;
         try {
-            String sql = "UPDATE memoBook SET " +
-                    "name = ?, " +
-                    "desc = ?, " +
+            String sql = "UPDATE memoNote SET " +
+                    "book_id = ?," +
+                    "front = ?," +
+                    "back = ?," +
                     "status = ?," +
+                    "e_f = ?," +
+                    "interval = ?," +
                     "modified_time = ?" +
                     "WHERE id = ?";
             db = helper.getWritableDatabase();
@@ -130,11 +93,11 @@ public class bookDao implements bookService {
     }
 
     @Override
-    public Map<String, String> viewBook(String[] selectionArgs) {
+    public Map<String, String> viewNote(String[] selectionArgs) {
         Map<String, String> map = new HashMap<>();
         SQLiteDatabase db = null;
         try {
-            String sql = "SELECT * FROM memoBook WHERE id = ?";
+            String sql = "SELECT * FROM memoNote WHERE id = ?";
             db = helper.getWritableDatabase();
             Cursor cursor = db.rawQuery(sql, selectionArgs);
 
@@ -156,12 +119,12 @@ public class bookDao implements bookService {
     }
 
     @Override
-    public List<Map<String, String>> listBooks() {
+    public List<Map<String, String>> listNotes() {
         List<Map<String, String>> list = new ArrayList<>();
 
         SQLiteDatabase db = null;
         try {
-            String sql = "SELECT * FROM memoBook";
+            String sql = "SELECT * FROM memoNote";
             db = helper.getWritableDatabase();
             Cursor cursor = db.rawQuery(sql, null);
 

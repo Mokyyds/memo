@@ -13,7 +13,7 @@
     <string name="no_memoBook_info">You do not have a memoBook yet!</string>
     <string name="no_memoBook_suggest">You can create anyone, click the right button and create a memoBook.</string>
 
-    <string name="no_activeBook_info">You do not have any one memoBook in active!</string>
+    <string name="no_activeBook_info">No memoBook in active!</string>
     <string name="no_activeBook_suggest">
         You can view all the memoBooks, and select one of these books.
     </string>
@@ -28,4 +28,6 @@
     <string name="input_status">is active?</string>
     <string name="positive_btn">OK</string>
     <string name="negative_btn">Cancel</string>
+    <string name="add_book_success_toast">memoBook added!</string>
+    <string name="add_book_fail_toast">Failed, try again!</string>
 </resources>

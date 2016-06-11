@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by root
  * on 6/8/16.
  */
-public interface noteService {
+public interface NoteService {
     boolean addNote(Object[] params);
 
     boolean delNote(Object[] params);

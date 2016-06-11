@@ -1,20 +1,19 @@
 package com.sealiu.memo.book;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by root
  * on 6/7/16.
  */
-public interface bookService {
+public interface BookService {
 
     /**
      * fetch an active memoBook;
      *
-     * @return a map which contains the memoBook's column name and value;
+     * @return an instance of Book
      */
-    Map<String, String> getActiveBook();
+    Book getActiveBook();
 
     /**
      * fetch the number of memoBooks;
@@ -51,15 +50,15 @@ public interface bookService {
      * select a memoBook by providing a curtain id;
      *
      * @param selectionArgs {id}
-     * @return a map which contains the memoBook's column name and value;
+     * @return an instance of Book;
      */
-    Map<String, String> viewBook(String[] selectionArgs);
+    Book viewBook(String[] selectionArgs);
 
     /**
      * select all memoBook
      *
-     * @return list\<map\>
+     * @return list\<Book\>
      */
-    List<Map<String, String>> listBooks();
+    List<Book> listBooks();
 }
 

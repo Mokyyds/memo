@@ -17,16 +17,14 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.sealiu.memo.book.AddBookDialogFragment;
-import com.sealiu.memo.book.bookDao;
-import com.sealiu.memo.book.bookService;
+import com.sealiu.memo.book.Book;
+import com.sealiu.memo.book.BookDao;
+import com.sealiu.memo.book.BookService;
 import com.sealiu.memo.note.AddNoteDialogFragment;
-import com.sealiu.memo.note.noteDao;
-import com.sealiu.memo.note.noteService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,10 +35,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        bookService bookService = new bookDao(MainActivity.this);
-        noteService noteService = new noteDao(MainActivity.this);
+        BookService bookService = new BookDao(MainActivity.this);
+//        NoteService noteService = new NoteDao(MainActivity.this);
 
-        List<Map<String, String>> list = bookService.listBooks();
+        List<Book> list = bookService.listBooks();
         Log.i(TAG, "listBooks: " + list.toString());
 
         setContentView(R.layout.activity_main);
@@ -79,15 +77,18 @@ public class MainActivity extends AppCompatActivity
             memoBookSubTitleTV.setText(R.string.no_memoBook_suggest);
             allMemoBooksBTN.setTextColor(disabledColor);
         } else { // already have some memoBooks, but no one is active.
-            Map<String, String> activeBook = bookService.getActiveBook();
+            Book activeBook = bookService.getActiveBook();
             if (activeBook != null) {
 
                 Log.i(TAG, "activeBook: " + activeBook.toString());
 
-                memoBookTitleTV.setText(activeBook.get("name"));
+                memoBookTitleTV.setText(activeBook.getName());
+
+                String activeBookDesc = activeBook.getDesc();
+                boolean flag = activeBookDesc == null || activeBookDesc.equals("");
 
                 memoBookSubTitleTV.setText(
-                        activeBook.get("desc") == null ? "No Description" : activeBook.get("desc")
+                        (flag) ? "No Description" : activeBookDesc
                 );
 
             } else {
