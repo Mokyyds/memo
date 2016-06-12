@@ -31,6 +31,7 @@ public class BookDao implements BookService {
             String sql = "SELECT * FROM memoBook WHERE status = 1";
             db = helper.getReadableDatabase();
             Cursor cursor = db.rawQuery(sql, null);
+            if (cursor.getCount() == 0) return null;
 
             int columns = cursor.getColumnCount();
             while (cursor.moveToNext()) {
@@ -46,25 +47,7 @@ public class BookDao implements BookService {
         } finally {
             if (db != null) db.close();
         }
-        if (map.isEmpty() || map.size() == 0) return null;
         return new Book(map);
-    }
-
-    @Override
-    public int count() {
-        int num = 0;
-        SQLiteDatabase db = null;
-        try {
-            String sql = "SELECT COUNT(id) FROM memoBook";
-            db = helper.getWritableDatabase();
-            Cursor cursor = db.rawQuery(sql, null);
-            num = cursor.getCount();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db != null) db.close();
-        }
-        return num;
     }
 
     @Override

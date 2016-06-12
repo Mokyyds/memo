@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">设置</string>
+    <string name="add_a_book">添加词库</string>
+    <string name="add_a_note">添加笔记</string>
+    <string name="add_book_fail_toast">失败，请重试！</string>
+    <string name="add_book_success_toast">词库已成功添加！</string>
+    <string name="all_book_btn">查看所有词库</string>
+    <string name="input_book_desc">词库描述</string>
+    <string name="input_book_name">词库名称</string>
+    <string name="input_status">是否设置为正在学习？</string>
+    <string name="learn_btn">现在学习</string>
+    <string name="navigation_drawer_close">关闭导航抽屉</string>
+    <string name="navigation_drawer_open">打开导航抽屉</string>
+    <string name="negative_btn">取消</string>
+    <string name="no_activeBook_info">没有正在学习的词库</string>
+    <string name="no_activeBook_suggest">暂时没有正在学习的词库，请去设置</string>
+    <string name="no_desc">没有描述</string>
+    <string name="no_memoBook_suggest">点击右边按钮创建一个词库</string>
+    <string name="no_memoBook_info">暂时没有词库</string>
+    <string name="no_task">任务全部完成</string>
+    <string name="positive_btn">确定</string>
+    <string name="setting_btn">设置</string>
+    <string name="task_title">今日任务</string>
+</resources>

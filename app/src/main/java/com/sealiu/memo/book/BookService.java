@@ -16,13 +16,6 @@ public interface BookService {
     Book getActiveBook();
 
     /**
-     * fetch the number of memoBooks;
-     *
-     * @return number of memoBooks;
-     */
-    int count();
-
-    /**
      * add a memoBook, which used to record the info of a set of notes;
      *
      * @param params {name, desc, status, created_time, modified_time, access_time}
