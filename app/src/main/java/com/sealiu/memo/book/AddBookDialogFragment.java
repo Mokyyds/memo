@@ -18,7 +18,7 @@ import com.sealiu.memo.R;
 public class AddBookDialogFragment extends DialogFragment {
 
     public interface AddBookDialogListener {
-        void onDialogPositiveClick(DialogFragment dialog, String name, String desc, boolean status);
+        void onDialogPositiveClick(DialogFragment dialog, String name, String desc, String status);
 
         void onDialogNegativeClick(DialogFragment dialog);
     }
@@ -83,7 +83,7 @@ public class AddBookDialogFragment extends DialogFragment {
                         AddBookDialogFragment.this,
                         bookName,
                         bookDesc,
-                        isActive
+                        String.valueOf(isActive)
                 );
             }
         }).setNegativeButton(R.string.negative_btn, new DialogInterface.OnClickListener() {

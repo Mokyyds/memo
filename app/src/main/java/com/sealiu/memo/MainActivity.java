@@ -206,13 +206,13 @@ public class MainActivity extends AppCompatActivity
      * Implement AddBookDialogListener
      */
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String n, String d, boolean s) {
+    public void onDialogPositiveClick(DialogFragment dialog, String n, String d, String s) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String now = sdf.format(new Date());
 
         BookService bookService = new BookDao(MainActivity.this);
-        Object[] params = {n, d, s, now, now, ""};
+        Object[] params = {n, d, s, now, now, "", "50", "50"};
         boolean flag = bookService.addBook(params);
         if (flag)
             Toast.makeText(

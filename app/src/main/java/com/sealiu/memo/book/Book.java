@@ -14,6 +14,8 @@ public class Book {
     private String created_time;
     private String modified_time;
     private String access_time;
+    private int new_count = 50;
+    private int review_count = 50;
 
     public Book(Map<String, String> params) {
         this.id = Integer.valueOf(params.get("id"));
@@ -23,6 +25,8 @@ public class Book {
         this.created_time = params.get("created_time");
         this.modified_time = params.get("modified_time");
         this.access_time = params.get("access_time");
+        this.new_count = Integer.valueOf(params.get("new_count"));
+        this.review_count = Integer.valueOf(params.get("review_count"));
     }
 
     public int getId() {
@@ -79,5 +83,21 @@ public class Book {
 
     public void setAccess_time(String access_time) {
         this.access_time = access_time;
+    }
+
+    public int getNew_count() {
+        return new_count;
+    }
+
+    public void setNew_count(int new_count) {
+        this.new_count = new_count;
+    }
+
+    public int getReview_count() {
+        return review_count;
+    }
+
+    public void setReview_count(int review_count) {
+        this.review_count = review_count;
     }
 }

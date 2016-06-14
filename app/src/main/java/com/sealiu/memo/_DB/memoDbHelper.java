@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.sealiu.memo._DB.BookDbSchema.BookTable;
+import com.sealiu.memo._DB.NoteDbSchema.NoteTable;
+
 /**
  * Created by root
  * on 6/7/16.
@@ -20,34 +23,38 @@ public class memoDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableMemoBook =
-                "CREATE TABLE memoBook(" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "name TEXT NOT NULL UNIQUE, " +
-                        "desc TEXT, " +
-                        "status INTEGER DEFAULT 0, " +
-                        "created_time TEXT, " +
-                        "modified_time TEXT," +
-                        "access_time TEXT)";
+                "create table " + BookTable.NAME + " (" +
+                        "_id integer primary key autoincrement, " +
+                        BookTable.Cols.UUID + ", " +
+                        BookTable.Cols.NAME + ", " +
+                        BookTable.Cols.DESC + ", " +
+                        BookTable.Cols.STATUS + " DEFAULT '0', " +
+                        BookTable.Cols.CREATED_TIME + ", " +
+                        BookTable.Cols.MODIFIED_TIME + ", " +
+                        BookTable.Cols.ACCESS_TIME + ", " +
+                        BookTable.Cols.NEW_COUNT + " DEFAULT '50', " +
+                        BookTable.Cols.REVIEW_COUNT + " DEFAULT '50')";
         db.execSQL(createTableMemoBook);
 
         String createTableMemoNote =
-                "CREATE TABLE memoNote(" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "book_id INTEGER NOT NULL, " +// foreign key: book_id
-                        "front TEXT NOT NULL UNIQUE, " +
-                        "back TEXT NOT NULL UNIQUE, " +
-                        "status INTEGER DEFAULT 0, " +// status=0: new
-                        "e_f REAL DEFAULT 2.5, " +
-                        "interval REAL DEFAULT 0, " +
-                        "created_time TEXT, " +
-                        "modified_time TEXT," +
-                        "access_time TEXT," +
-                        "FOREIGN KEY(book_id) REFERENCES memoBook(id))";
+                "create table " + NoteTable.NAME + " (" +
+                        "_id integer primary key autoincrement, " +
+                        NoteTable.Cols.UUID + ", " +
+                        NoteTable.Cols.BOOK_UUID + ", " +
+                        NoteTable.Cols.FRONT + ", " +
+                        NoteTable.Cols.BACK + ", " +
+                        NoteTable.Cols.STATUS + " DEFAULT '0', " +
+                        NoteTable.Cols.E_F + " DEFAULT '2.5', " +
+                        NoteTable.Cols.INTERVAL + " DEFAULT '0', " +
+                        NoteTable.Cols.CREATED_TIME + ", " +
+                        NoteTable.Cols.MODIFIED_TIME + ", " +
+                        NoteTable.Cols.ACCESS_TIME + ", " +
+                        "FOREIGN KEY(" + NoteTable.Cols.BOOK_UUID + ") REFERENCES " + BookTable.NAME + "(" + BookTable.Cols.UUID + "))";
         db.execSQL(createTableMemoNote);
 
-        String createIndexBookName = "CREATE INDEX name_index ON memoBook(name)";
-        String createIndexNoteFront = "CREATE INDEX front_index ON memoNote(front)";
-        String createIndexNoteBack = "CREATE INDEX back_index ON memoNote(back)";
+        String createIndexBookName = "CREATE INDEX name_index ON " + BookTable.NAME + "(" + BookTable.Cols.NAME + ")";
+        String createIndexNoteFront = "CREATE INDEX front_index ON " + NoteTable.NAME + "(" + NoteTable.Cols.FRONT + ")";
+        String createIndexNoteBack = "CREATE INDEX back_index ON " + NoteTable.NAME + "(" + NoteTable.Cols.BACK + ")";
 
         db.execSQL(createIndexBookName);
         db.execSQL(createIndexNoteFront);

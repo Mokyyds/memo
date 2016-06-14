@@ -62,7 +62,9 @@ public class BookDao implements BookService {
                             "status," +
                             "created_time," +
                             "modified_time," +
-                            "access_time) values (?, ?, ?, ?, ?, ?)";
+                            "access_time," +
+                            "new_count," +
+                            "review_count) values (?, ?, ?, ?, ?, ?, ?, ?)";
             db = helper.getWritableDatabase();
             db.execSQL(sql, params);
             flag = true;
