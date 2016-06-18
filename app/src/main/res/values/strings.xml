@@ -31,4 +31,7 @@
     <string name="negative_btn">Cancel</string>
     <string name="add_book_success_toast">memoBook added!</string>
     <string name="add_book_fail_toast">Failed, try again!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
