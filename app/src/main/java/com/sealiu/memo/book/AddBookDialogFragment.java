@@ -1,5 +1,6 @@
 package com.sealiu.memo.book;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -16,6 +17,30 @@ import com.sealiu.memo.R;
 
 public class AddBookDialogFragment extends DialogFragment {
 
+    public interface AddBookDialogListener {
+        void onDialogPositiveClick(DialogFragment dialog, String name, String desc, String status);
+
+        void onDialogNegativeClick(DialogFragment dialog);
+    }
+
+    // Use this instance of the interface to deliver action events
+    AddBookDialogListener aListener;
+
+    // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the NoticeDialogListener so we can send events to the host
+            aListener = (AddBookDialogListener) activity;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString()
+                    + " must implement AddBookDialogListener");
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -24,7 +49,7 @@ public class AddBookDialogFragment extends DialogFragment {
             DisplayMetrics dm = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             dialog.getWindow()
-                    .setLayout((int) (dm.widthPixels * 0.75), ViewGroup.LayoutParams.WRAP_CONTENT);
+                    .setLayout((int) (dm.widthPixels * 0.85), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 
@@ -53,12 +78,20 @@ public class AddBookDialogFragment extends DialogFragment {
                 String bookDesc = String.valueOf(bookDescET.getText());
                 boolean isActive = status.isChecked();
 
+                AddBookDialogListener listener = (AddBookDialogListener) getActivity();
+                listener.onDialogPositiveClick(
+                        AddBookDialogFragment.this,
+                        bookName,
+                        bookDesc,
+                        String.valueOf(isActive)
+                );
             }
         }).setNegativeButton(R.string.negative_btn, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int id) {
-
+                AddBookDialogListener listener = (AddBookDialogListener) getActivity();
+                listener.onDialogNegativeClick(AddBookDialogFragment.this);
             }
         });
         return builder.create();

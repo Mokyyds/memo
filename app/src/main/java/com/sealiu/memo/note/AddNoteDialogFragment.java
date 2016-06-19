@@ -12,10 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.sealiu.memo.MainActivity;
 import com.sealiu.memo.R;
 
 public class AddNoteDialogFragment extends DialogFragment {
+
+    private static final String TAG = "AddNoteDialogFragment";
 
     @Override
     public void onStart() {
@@ -25,7 +26,7 @@ public class AddNoteDialogFragment extends DialogFragment {
             DisplayMetrics dm = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
             dialog.getWindow()
-                    .setLayout((int) (dm.widthPixels * 0.75), ViewGroup.LayoutParams.WRAP_CONTENT);
+                    .setLayout((int) (dm.widthPixels * 0.85), ViewGroup.LayoutParams.WRAP_CONTENT);
         }
     }
 
@@ -52,7 +53,7 @@ public class AddNoteDialogFragment extends DialogFragment {
                 String front = String.valueOf(frontET.getText());
                 String back = String.valueOf(backET.getText());
 
-                Log.i(MainActivity.TAG, front + " " + back);
+                Log.i(TAG, front + " " + back);
             }
         })
                 .setNegativeButton(R.string.negative_btn, new DialogInterface.OnClickListener() {

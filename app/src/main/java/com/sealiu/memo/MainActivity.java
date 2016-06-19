@@ -1,5 +1,6 @@
 package com.sealiu.memo;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -11,13 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.sealiu.memo.book.AddBookDialogFragment;
+import com.sealiu.memo.book.BookDao;
+import com.sealiu.memo.book.BookService;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AddBookDialogFragment.AddBookDialogListener {
 
-    //, AddBookDialogFragment.AddBookDialogListener
-    public static final String TAG = "TEST";
-    private FragmentManager fragmentManager = getFragmentManager();
+    private static final String TAG = "MainActivity";
+    private FragmentManager fm = getFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,30 +34,34 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Fragment fragment = fragmentManager.findFragmentById(R.id.content_frame);
+        Fragment fragment = fm.findFragmentById(R.id.content_frame);
 
         if (fragment == null) {
             fragment = new MainFragment();
-            fragmentManager.beginTransaction()
-                    .add(R.id.content_frame, fragment)
+            fm.beginTransaction()
+                    .replace(R.id.content_frame, fragment, "MAIN")
                     .commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        if (drawer != null) {
+            drawer.setDrawerListener(toggle);
+        }
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        }
 
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
@@ -86,16 +98,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new MainFragment())
+            fm.beginTransaction()
+                    .replace(R.id.content_frame, new MainFragment(), "MAIN")
+                    .addToBackStack("MAIN")
                     .commit();
         } else if (id == R.id.nav_words_book) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new BooksFragment())
+            fm.beginTransaction()
+                    .replace(R.id.content_frame, new BooksFragment(), "BOOKS")
+                    .addToBackStack("BOOKS")
                     .commit();
         } else if (id == R.id.nav_trend) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, new StatisticFragment())
+            fm.beginTransaction()
+                    .replace(R.id.content_frame, new StatisticFragment(), "STATISTIC")
+                    .addToBackStack("STATISTIC")
                     .commit();
         } else if (id == R.id.nav_grade) {
 
@@ -106,95 +121,40 @@ public class MainActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (drawer != null) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 
+    /**
+     * Implement AddBookDialogListener
+     */
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String name, String desc, String status) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String now = sdf.format(new Date());
 
-//    private void initMemoBook() {
-//        Log.i(TAG, "iniMemoBook()");
-//        TextView dateTodayTV = (TextView) findViewById(R.id.date_today);
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-//        dateTodayTV.setText(sdf.format(new Date()));
-//
-//        TextView taskContentTV = (TextView) findViewById(R.id.task_content);
-//        Button learnBTN = (Button) findViewById(R.id.learn_btn);
-//        Button settingBTN = (Button) findViewById(R.id.setting_btn);
-//        TextView memoBookTitleTV = (TextView) findViewById(R.id.memoBook_title);
-//        TextView memoBookSubTitleTV = (TextView) findViewById(R.id.memoBook_subtitle);
-//        Button allMemoBooksBTN = (Button) findViewById(R.id.allMemoBooks_btn);
-//
-//        int disabledColor = ContextCompat.getColor(this, R.color.disabledText);
-//        int primaryColor = ContextCompat.getColor(this, R.color.colorAccent);
-//
-//        BookService bookService = new BookDao(MainActivity.this);
-//        List<Book> list = bookService.listBooks();
-//        Book activeBook = bookService.getActiveBook();
-////        Log.i(TAG, "listBooks: " + list.toString());
-////        Log.i(TAG, "bookCount: " + list.size());
-////        Log.i(TAG, "activeBook: " + activeBook.toString());
-//
-//
-//        if (!list.isEmpty() && activeBook != null) {
-//            // task
-//            taskContentTV.setText("task\'s content");
-//
-//            // active
-//            memoBookTitleTV.setText(activeBook.getName());
-//            String activeBookDesc = activeBook.getDesc();
-//            boolean flag = activeBookDesc == null || activeBookDesc.equals("");
-//            if (flag) memoBookSubTitleTV.setText(R.string.no_desc);
-//            else memoBookSubTitleTV.setText(activeBookDesc);
-//        } else if (!list.isEmpty() && activeBook == null) {
-//            // task
-//            taskContentTV.setText(R.string.no_task);
-//
-//            // active
-//            memoBookTitleTV.setText(R.string.no_activeBook_info);
-//            memoBookSubTitleTV.setText(R.string.no_activeBook_suggest);
-//            allMemoBooksBTN.setTextColor(primaryColor);
-//        } else {
-//            // task
-//            taskContentTV.setText(R.string.no_task);
-//            learnBTN.setClickable(false);
-//            learnBTN.setTextColor(disabledColor);
-//            settingBTN.setClickable(false);
-//            settingBTN.setTextColor(disabledColor);
-//
-//            // active;
-//            memoBookTitleTV.setText(R.string.no_memoBook_info);
-//            memoBookSubTitleTV.setText(R.string.no_memoBook_suggest);
-//            allMemoBooksBTN.setTextColor(disabledColor);
-//        }
-//    }
+        BookService bookService = new BookDao(MainActivity.this);
+        Object[] params = {name, desc, status, now, now, "", "50", "50"};
+        boolean flag = bookService.addBook(params);
 
-//    /**
-//     * Implement AddBookDialogListener
-//     */
-//    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog, String n, String d, String s) {
-//
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        String now = sdf.format(new Date());
-//
-//        BookService bookService = new BookDao(MainActivity.this);
-//        Object[] params = {n, d, s, now, now, "", "50", "50"};
-//        boolean flag = bookService.addBook(params);
-//        if (flag)
-//            Toast.makeText(
-//                    MainActivity.this,
-//                    R.string.add_book_success_toast,
-//                    Toast.LENGTH_SHORT).show();
-//        else
-//            Toast.makeText(
-//                    MainActivity.this,
-//                    R.string.add_book_fail_toast,
-//                    Toast.LENGTH_SHORT).show();
-//        initMemoBook();
-//    }
+        if (flag)
+            Toast.makeText(
+                    MainActivity.this,
+                    R.string.add_book_success_toast,
+                    Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(
+                    MainActivity.this,
+                    R.string.add_book_fail_toast,
+                    Toast.LENGTH_SHORT).show();
+        MainFragment mainFragment = (MainFragment) getFragmentManager().findFragmentByTag("MAIN");
+        mainFragment.updateView();
+    }
 
-//    @Override
-//    public void onDialogNegativeClick(DialogFragment dialog) {
-//        Toast.makeText(MainActivity.this, R.string.add_book_fail_toast, Toast.LENGTH_SHORT).show();
-//    }
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        Toast.makeText(MainActivity.this, R.string.add_book_cancel_toast, Toast.LENGTH_SHORT).show();
+    }
 }
