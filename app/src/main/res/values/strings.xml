@@ -32,4 +32,6 @@
     <string name="add_book_success_toast">memoBook added!</string>
     <string name="add_book_fail_toast">Failed, try again!</string>
     <string name="add_book_cancel_toast">Failed, try again!</string>
+    <string name="statistic_toolbar_title">Statistic</string>
+    <string name="books_toolbar_title">Book List</string>
 </resources>

@@ -23,4 +23,6 @@
     <string name="setting_btn">设置</string>
     <string name="task_title">今日任务</string>
     <string name="add_book_cancel_toast">取消添加词库</string>
+    <string name="statistic_toolbar_title">统计</string>
+    <string name="books_toolbar_title">词库</string>
 </resources>
