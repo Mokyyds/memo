@@ -1,6 +1,6 @@
 package com.sealiu.memo.book;
 
-import java.util.List;
+import android.content.ContentValues;
 
 /**
  * Created by root
@@ -9,49 +9,28 @@ import java.util.List;
 public interface BookService {
 
     /**
-     * fetch an active memoBook;
-     *
-     * @return an instance of Book
-     */
-    Book getActiveBook();
-
-    /**
      * add a memoBook, which used to record the info of a set of notes;
-     *
-     * @param params {name, desc, status, created_time, modified_time, access_time}
-     * @return a boolean, show whether is the adding operation successful;
      */
-    boolean addBook(Object[] params);
+    long addBook(ContentValues values);
 
     /**
      * delete a memoBook by providing a curtain id;
-     *
-     * @param params {id}
-     * @return a boolean, show whether is the deleting operation successful;
      */
-    boolean delBook(Object[] params);
+    int delBook(String whereClause, String[] whereArgs);
 
     /**
      * update a memoBook's info
-     *
-     * @param params {name, desc, status, modified_time}
-     * @return a boolean, show whether is the updating operation successful;
      */
-    boolean updateBook(Object[] params);
+    int updateBook(ContentValues values, String whereClause, String[] whereArgs);
 
     /**
      * select a memoBook by providing a curtain id;
-     *
-     * @param selectionArgs {id}
-     * @return an instance of Book;
      */
-    Book viewBook(String[] selectionArgs);
+    Book queryBook(boolean distinct, String[] columns, String whereClause, String[] whereArgs, String orderBy, String limit);
 
     /**
-     * select all memoBook
      *
-     * @return list\<Book\>
      */
-    List<Book> listBooks();
+    int columnsNum(boolean distinct, String whereClause, String[] whereArgs);
 }
 

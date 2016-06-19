@@ -1,15 +1,12 @@
 package com.sealiu.memo.book;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.sealiu.memo._DB.BookDbSchema.BookTable;
 import com.sealiu.memo._DB.memoDbHelper;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by root
@@ -24,153 +21,84 @@ public class BookDao implements BookService {
     }
 
     @Override
-    public Book getActiveBook() {
-        Map<String, String> map = new HashMap<>();
+    public long addBook(ContentValues values) {
+        long id = -1;
         SQLiteDatabase db = null;
         try {
-            String sql = "SELECT * FROM memoBook WHERE status = 1";
+            db = helper.getWritableDatabase();
+            id = db.insert(BookTable.NAME, null, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) db.close();
+        }
+        return id;
+    }
+
+    @Override
+    public int delBook(String whereClause, String[] whereArgs) {
+        int columns = 0;
+        SQLiteDatabase db = null;
+        try {
+            db = helper.getWritableDatabase();
+            columns = db.delete(BookTable.NAME, whereClause, whereArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) db.close();
+        }
+        return columns;
+    }
+
+    @Override
+    public int updateBook(ContentValues values, String whereClause, String[] whereArgs) {
+        int columns = 0;
+        SQLiteDatabase db = null;
+        try {
+            db = helper.getWritableDatabase();
+            columns = db.update(BookTable.NAME, values, whereClause, whereArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) db.close();
+        }
+        return columns;
+    }
+
+    @Override
+    public Book queryBook(boolean distinct, String[] columns, String whereClause, String[] whereArgs, String orderBy, String limit) {
+        Cursor cursor = null;
+        SQLiteDatabase db = null;
+        Book book = null;
+        try {
             db = helper.getReadableDatabase();
-            Cursor cursor = db.rawQuery(sql, null);
-            if (cursor.getCount() == 0) return null;
-
-            int columns = cursor.getColumnCount();
-            while (cursor.moveToNext()) {
-                for (int i = 0; i < columns; i++) {
-                    String columnName = cursor.getColumnName(i);
-                    String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
-                    if (columnValue == null) columnValue = "";
-                    map.put(columnName, columnValue);
-                }
-            }
+            cursor = db.query(distinct, BookTable.NAME, columns, whereClause, whereArgs, null, null, orderBy, limit);
+            if (cursor != null)
+                book = Book.cursorToBook(cursor);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (db != null) db.close();
         }
-        return new Book(map);
+
+        return book;
     }
 
     @Override
-    public boolean addBook(Object[] params) {
-        boolean flag = false;
+    public int columnsNum(boolean distinct, String whereClause, String[] whereArgs) {
+        int columnsNum = 0;
         SQLiteDatabase db = null;
         try {
-            String sql =
-                    "INSERT INTO memoBook(" +
-                            "name, " +
-                            "desc," +
-                            "status," +
-                            "created_time," +
-                            "modified_time," +
-                            "access_time," +
-                            "new_count," +
-                            "review_count) values (?, ?, ?, ?, ?, ?, ?, ?)";
-            db = helper.getWritableDatabase();
-            db.execSQL(sql, params);
-            flag = true;
+            db = helper.getReadableDatabase();
+            Cursor cursor = db.query(distinct, BookTable.NAME, null, whereClause, whereArgs, null, null, null, null);
+            if (cursor != null)
+                columnsNum = cursor.getCount();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (db != null) db.close();
         }
-        return flag;
-    }
 
-    @Override
-    public boolean delBook(Object[] params) {
-        boolean flag = false;
-        SQLiteDatabase db = null;
-        try {
-            String sql = "DELETE FROM memoBook WHERE id = ?";
-            db = helper.getWritableDatabase();
-            db.execSQL(sql, params);
-            flag = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db != null) db.close();
-        }
-        return flag;
-    }
-
-    @Override
-    public boolean updateBook(Object[] params) {
-        boolean flag = false;
-        SQLiteDatabase db = null;
-        try {
-            String sql = "UPDATE memoBook SET " +
-                    "name = ?, " +
-                    "desc = ?, " +
-                    "status = ?," +
-                    "modified_time = ?" +
-                    "WHERE id = ?";
-            db = helper.getWritableDatabase();
-            db.execSQL(sql, params);
-            flag = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db != null) db.close();
-        }
-        return flag;
-    }
-
-    @Override
-    public Book viewBook(String[] selectionArgs) {
-        Map<String, String> map = new HashMap<>();
-        SQLiteDatabase db = null;
-        try {
-            String sql = "SELECT * FROM memoBook WHERE id = ?";
-            db = helper.getWritableDatabase();
-            Cursor cursor = db.rawQuery(sql, selectionArgs);
-
-            int columns = cursor.getColumnCount();
-            while (cursor.moveToNext()) {
-                for (int i = 0; i < columns; i++) {
-                    String columnName = cursor.getColumnName(i);
-                    String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
-                    if (columnValue == null) columnValue = "";
-                    map.put(columnName, columnValue);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db != null) db.close();
-        }
-        if (map.isEmpty() || map.size() == 0) return null;
-        return new Book(map);
-    }
-
-    @Override
-    public List<Book> listBooks() {
-        List<Book> list = new ArrayList<>();
-
-        SQLiteDatabase db = null;
-        try {
-            String sql = "SELECT * FROM memoBook";
-            db = helper.getWritableDatabase();
-            Cursor cursor = db.rawQuery(sql, null);
-
-            int columns = cursor.getColumnCount();
-            while (cursor.moveToNext()) {
-                Map<String, String> map = new HashMap<>();
-                for (int i = 0; i < columns; i++) {
-                    String columnName = cursor.getColumnName(i);
-                    String columnValue = cursor.getString(cursor.getColumnIndex(columnName));
-                    if (columnValue == null) columnValue = "";
-                    map.put(columnName, columnValue);
-                }
-                if (map.isEmpty() || map.size() == 0)
-                    list.add(null);
-                else
-                    list.add(new Book(map));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (db != null) db.close();
-        }
-        return list;
+        return columnsNum;
     }
 }
