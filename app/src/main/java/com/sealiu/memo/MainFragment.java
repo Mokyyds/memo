@@ -20,7 +20,6 @@ import com.sealiu.memo.note.AddNoteDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -60,8 +59,7 @@ public class MainFragment extends Fragment {
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), WordsBookList.class);
-//                startActivity(intent);
+
                 getActivity().getFragmentManager().beginTransaction()
                         .replace(R.id.content_frame, new BooksFragment(), "BOOKS")
                         .addToBackStack("BOOKS")
@@ -91,14 +89,17 @@ public class MainFragment extends Fragment {
         int primaryColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
 
         BookService bookService = new BookDao(getActivity());
-        List<Book> list = bookService.listBooks();
-        Book activeBook = bookService.getActiveBook();
+        int bookCount = bookService.columnsNum(true, null, null);
+        Book activeBook = bookService.queryBook(
+                true,
+                null,
+                "status = ?",
+                new String[]{"1"},
+                null,
+                "1"
+        );
 
-        Log.i(TAG, "listBooks: " + list.toString());
-        Log.i(TAG, "bookCount: " + list.size());
-
-
-        if (!list.isEmpty() && activeBook != null) {
+        if (bookCount != 0 && activeBook != null) {
             // task
             taskContentTV.setText("task\'s content");
 
@@ -108,7 +109,7 @@ public class MainFragment extends Fragment {
             boolean flag = activeBookDesc == null || activeBookDesc.equals("");
             if (flag) memoBookSubTitleTV.setText(R.string.no_desc);
             else memoBookSubTitleTV.setText(activeBookDesc);
-        } else if (!list.isEmpty() && activeBook == null) {
+        } else if (bookCount != 0 && activeBook == null) {
             // task
             taskContentTV.setText(R.string.no_task);
 

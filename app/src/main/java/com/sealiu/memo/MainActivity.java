@@ -3,6 +3,7 @@ package com.sealiu.memo;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,11 +16,15 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.sealiu.memo.book.AddBookDialogFragment;
+import com.sealiu.memo.book.Book;
 import com.sealiu.memo.book.BookDao;
 import com.sealiu.memo.book.BookService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AddBookDialogFragment.AddBookDialogListener {
@@ -55,7 +60,6 @@ public class MainActivity extends AppCompatActivity
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(this);
         }
-
     }
 
     @Override
@@ -136,10 +140,22 @@ public class MainActivity extends AppCompatActivity
         String now = sdf.format(new Date());
 
         BookService bookService = new BookDao(MainActivity.this);
-        Object[] params = {name, desc, status, now, now, "", "50", "50"};
-        boolean flag = bookService.addBook(params);
+        Map<String, String> map = new HashMap<>();
+        UUID uuid = UUID.randomUUID();
+        map.put("uuid", uuid.toString());
+        map.put("name", name);
+        map.put("desc", desc);
+        map.put("status", status);
+        map.put("created_time", now);
+        map.put("modified_time", now);
+        map.put("access_time", "");
+        map.put("new_count", "50");
+        map.put("review_count", "50");
 
-        if (flag)
+        ContentValues values = new Book(map).getContentValues();
+        long id = bookService.addBook(values);
+
+        if (id != -1)
             Toast.makeText(
                     MainActivity.this,
                     R.string.add_book_success_toast,

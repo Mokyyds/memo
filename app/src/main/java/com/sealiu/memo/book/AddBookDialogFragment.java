@@ -83,7 +83,7 @@ public class AddBookDialogFragment extends DialogFragment {
                         AddBookDialogFragment.this,
                         bookName,
                         bookDesc,
-                        String.valueOf(isActive)
+                        isActive ? "1" : "0"
                 );
             }
         }).setNegativeButton(R.string.negative_btn, new DialogInterface.OnClickListener() {
