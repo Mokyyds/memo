@@ -34,4 +34,6 @@
     <string name="add_book_cancel_toast">Failed, try again!</string>
     <string name="statistic_toolbar_title">Statistic</string>
     <string name="books_toolbar_title">Book List</string>
+    <string name="title_activity_book_detail">BookDetailActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

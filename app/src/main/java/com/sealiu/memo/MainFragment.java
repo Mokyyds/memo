@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.sealiu.memo.book.AddBookDialogFragment;
-import com.sealiu.memo.book.Book;
-import com.sealiu.memo.book.BookDao;
-import com.sealiu.memo.book.BookService;
+import com.sealiu.memo.book.Service.BookService;
+import com.sealiu.memo.book.Service.Impl.BookDao;
+import com.sealiu.memo.book.modle.Book;
 import com.sealiu.memo.note.AddNoteDialogFragment;
 
 import java.text.SimpleDateFormat;

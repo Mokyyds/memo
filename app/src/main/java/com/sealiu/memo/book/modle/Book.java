@@ -1,11 +1,13 @@
-package com.sealiu.memo.book;
+package com.sealiu.memo.book.modle;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.sealiu.memo._DB.BookDbSchema.BookTable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,8 +27,8 @@ public class Book {
 
     public Book(Map<String, String> params) {
         this.uuid = params.get("uuid");
-        this.name = params.get("name");
-        this.desc = params.get("desc");
+        this.name = params.get("name") == null ? "" : params.get("name");
+        this.desc = params.get("desc") == null ? "" : params.get("desc");
         this.status = Integer.valueOf(params.get("status"));
         this.created_time = params.get("created_time");
         this.modified_time = params.get("modified_time");
@@ -134,5 +136,22 @@ public class Book {
         }
         if (map.size() == 0) return null;
         return new Book(map);
+    }
+
+    public static List<Book> cursorToBookList(Cursor cursor) {
+        List<Book> list = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
+
+        int cols_len = cursor.getColumnCount();
+        while (cursor.moveToNext()) {
+            for (int i = 0; i < cols_len; i++) {
+                String cols_name = cursor.getColumnName(i);
+                String cols_value = cursor.getString(cursor.getColumnIndex(cols_name));
+                if (cols_value == null) cols_value = "";
+                map.put(cols_name, cols_value);
+            }
+            if (map.size() != 0) list.add(new Book(map));
+        }
+        return list;
     }
 }

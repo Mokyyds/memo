@@ -1,6 +1,10 @@
-package com.sealiu.memo.book;
+package com.sealiu.memo.book.Service;
 
 import android.content.ContentValues;
+
+import com.sealiu.memo.book.modle.Book;
+
+import java.util.List;
 
 /**
  * Created by root
@@ -28,8 +32,10 @@ public interface BookService {
      */
     Book queryBook(boolean distinct, String[] columns, String whereClause, String[] whereArgs, String orderBy, String limit);
 
+    List<Book> queryBookList(boolean distinct, String[] columns, String whereClause, String[] whereArgs, String orderBy, String limit);
+
     /**
-     *
+     * get book number in a certain condition
      */
     int columnsNum(boolean distinct, String whereClause, String[] whereArgs);
 }

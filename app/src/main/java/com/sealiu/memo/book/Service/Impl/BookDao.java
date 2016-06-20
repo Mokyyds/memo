@@ -1,4 +1,4 @@
-package com.sealiu.memo.book;
+package com.sealiu.memo.book.Service.Impl;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.sealiu.memo._DB.BookDbSchema.BookTable;
 import com.sealiu.memo._DB.memoDbHelper;
+import com.sealiu.memo.book.Service.BookService;
+import com.sealiu.memo.book.modle.Book;
+
+import java.util.List;
 
 /**
  * Created by root
@@ -67,7 +71,7 @@ public class BookDao implements BookService {
 
     @Override
     public Book queryBook(boolean distinct, String[] columns, String whereClause, String[] whereArgs, String orderBy, String limit) {
-        Cursor cursor = null;
+        Cursor cursor;
         SQLiteDatabase db = null;
         Book book = null;
         try {
@@ -82,6 +86,26 @@ public class BookDao implements BookService {
         }
 
         return book;
+    }
+
+    @Override
+    public List<Book> queryBookList(boolean distinct, String[] columns, String whereClause, String[] whereArgs, String orderBy, String limit) {
+        Cursor cursor;
+        SQLiteDatabase db = null;
+        List<Book> list = null;
+
+        try {
+            db = helper.getReadableDatabase();
+            cursor = db.query(distinct, BookTable.NAME, columns, whereClause, whereArgs, null, null, orderBy, limit);
+            if (cursor != null)
+                list = Book.cursorToBookList(cursor);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (db != null) db.close();
+        }
+
+        return list;
     }
 
     @Override
