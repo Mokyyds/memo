@@ -82,7 +82,6 @@ public class MainFragment extends Fragment {
         TextView memoBookSubTitleTV = (TextView) view.findViewById(R.id.memoBook_subtitle);
 
         int disabledColor = ContextCompat.getColor(getActivity(), R.color.disabledText);
-        int primaryColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
 
         BookService bookService = new BookDao(getActivity());
         int bookCount = bookService.columnsNum(true, null, null);

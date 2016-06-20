@@ -32,4 +32,5 @@
     <string name="nav_drawer_feedback">反馈</string>
     <string name="nav_drawer_Statistic">统计</string>
     <string name="nav_drawer_Books">词库</string>
+    <string name="book_detail_toolbar_title">词库信息</string>
 </resources>
