@@ -25,4 +25,11 @@
     <string name="add_book_cancel_toast">取消添加词库</string>
     <string name="statistic_toolbar_title">统计</string>
     <string name="books_toolbar_title">词库</string>
+    <string name="nav_drawer_home">首页</string>
+    <string name="nav_drawer_settings">设置</string>
+    <string name="nav_drawer_other">其他</string>
+    <string name="nav_drawer_grade_me">评价</string>
+    <string name="nav_drawer_feedback">反馈</string>
+    <string name="nav_drawer_Statistic">统计</string>
+    <string name="nav_drawer_Books">词库</string>
 </resources>

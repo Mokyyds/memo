@@ -2,13 +2,20 @@
     <string name="app_name" translatable="false">memo</string>
     <string name="add_a_note">Add A Note</string>
     <string name="add_a_book">Add A Book</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
 
-    <!--MainActivity-->
+    <!--Navigation Drawer-->
+    <string name="nav_drawer_home">Home</string>
+    <string name="nav_drawer_Books">Books</string>
+    <string name="nav_drawer_Statistic">Statistic</string>
+    <string name="nav_drawer_other">Other</string>
+    <string name="nav_drawer_grade_me">Grade Me</string>
+    <string name="nav_drawer_feedback">Feedback</string>
+    <string name="nav_drawer_settings">Settings</string>
+
+    <!--MainFragment-->
     <string name="task_title">Today\'s Task</string>
     <string name="no_task">All Done!</string>
     <string name="learn_btn">Learn</string>
