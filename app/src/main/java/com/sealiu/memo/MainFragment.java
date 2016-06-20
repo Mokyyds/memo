@@ -63,17 +63,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-        Button moreBtn = (Button) view.findViewById(R.id.allMemoBooks_btn);
-        moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getActivity().getFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, new BooksFragment(), "BOOKS")
-                        .addToBackStack("BOOKS")
-                        .commit();
-            }
-        });
         this.view = view;
         updateView();
         return view;
@@ -91,7 +80,6 @@ public class MainFragment extends Fragment {
         Button settingBTN = (Button) view.findViewById(R.id.setting_btn);
         TextView memoBookTitleTV = (TextView) view.findViewById(R.id.memoBook_title);
         TextView memoBookSubTitleTV = (TextView) view.findViewById(R.id.memoBook_subtitle);
-        Button allMemoBooksBTN = (Button) view.findViewById(R.id.allMemoBooks_btn);
 
         int disabledColor = ContextCompat.getColor(getActivity(), R.color.disabledText);
         int primaryColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
@@ -124,7 +112,6 @@ public class MainFragment extends Fragment {
             // active
             memoBookTitleTV.setText(R.string.no_activeBook_info);
             memoBookSubTitleTV.setText(R.string.no_activeBook_suggest);
-            allMemoBooksBTN.setTextColor(primaryColor);
         } else {
             // task
             taskContentTV.setText(R.string.no_task);
@@ -136,7 +123,6 @@ public class MainFragment extends Fragment {
             // active;
             memoBookTitleTV.setText(R.string.no_memoBook_info);
             memoBookSubTitleTV.setText(R.string.no_memoBook_suggest);
-            allMemoBooksBTN.setTextColor(disabledColor);
         }
     }
 }
