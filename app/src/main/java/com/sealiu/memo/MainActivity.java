@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
     private FragmentManager fm = getFragmentManager();
+    public Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Fragment fragment = fm.findFragmentById(R.id.content_frame);

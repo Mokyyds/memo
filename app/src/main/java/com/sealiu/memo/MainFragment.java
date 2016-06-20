@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,14 +32,17 @@ public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
     private View view;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.fragment_toolbar);
-        toolbar.setTitle(R.string.app_name);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         FloatingActionButton libFab = (FloatingActionButton) view.findViewById(R.id.lib_add_fab);
         libFab.setOnClickListener(new View.OnClickListener() {

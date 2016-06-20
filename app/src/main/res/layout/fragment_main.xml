@@ -10,10 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/toolbar"
-            android:id="@+id/fragment_toolbar" />
-
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
