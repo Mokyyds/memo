@@ -19,10 +19,7 @@
 
 和[pyMemo](https://github.com/SEALiu/PyMemo)相同, 使用重复间隔理论帮助大家更好的记忆. 初期会以英语单词位主要和唯一的记忆材料, 相比[pyMemo](https://github.com/SEALiu/PyMemo) 会增加当时由于时间关系没有完成的进度统计功能, 音标显示功能, 和单词查询功能. 支持自定义词库和导入共享词库(该功能第一个版本待定).
 
-<video id="video" controls="" preload="none" poster="http://mdeia.w3.org/2010/05/sintel/poster.png">
-    <source src="/screenshots/device-2016-06-20-222716.mp4" type="video/mp4">
-    <p>你使用的客户端不支持 HTML5 视频</p>
-</video>
+![screenRecord](/screenshots/device-2016-06-20-222716.gif)
 
 ## 必备
 
