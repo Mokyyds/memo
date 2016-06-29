@@ -2,7 +2,7 @@ package com.sealiu.memo.book.Service;
 
 import android.content.ContentValues;
 
-import com.sealiu.memo.book.modle.Book;
+import com.sealiu.memo.book.model.Book;
 
 import java.util.List;
 

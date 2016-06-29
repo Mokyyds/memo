@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.sealiu.memo.book.AddBookDialogFragment;
 import com.sealiu.memo.book.Service.BookService;
 import com.sealiu.memo.book.Service.Impl.BookDao;
-import com.sealiu.memo.book.modle.Book;
+import com.sealiu.memo.book.model.Book;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -16,7 +16,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.sealiu.memo.book.AddBookDialogFragment;
 import com.sealiu.memo.book.Service.BookService;
 import com.sealiu.memo.book.Service.Impl.BookDao;
-import com.sealiu.memo.book.modle.Book;
+import com.sealiu.memo.book.model.Book;
 import com.sealiu.memo.note.AddNoteDialogFragment;
 
 import java.text.SimpleDateFormat;

@@ -1,9 +1,9 @@
-package com.sealiu.memo.book.modle;
+package com.sealiu.memo.note.model;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.sealiu.memo._DB.BookDbSchema.BookTable;
+import com.sealiu.memo._DB.NoteDbSchema;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,43 +11,49 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by root
- * on 6/11/16.
+ * Created by liuyang
+ * on 2016/6/29.
  */
-public class Book {
+public class Note {
+
     private String uuid;
-    private String name;
-    private String desc;
+    private String book_uuid;
+    private String front;
+    private String back;
     private int status = 0;
+    private Double E_F = 2.5;
+    private Double interval = 0d;
     private String created_time;
     private String modified_time;
     private String access_time;
-    private int new_count = 50;
-    private int review_count = 50;
 
-    public Book(Map<String, String> params) {
+    public Note(Map<String, String> params) {
         this.uuid = params.get("uuid");
-        this.name = params.get("name") == null ? "" : params.get("name");
-        this.desc = params.get("desc") == null ? "" : params.get("desc");
+        this.book_uuid = params.get("book_uuid");
+        this.front = params.get("front");
+        this.back = params.get("back");
         this.status = Integer.valueOf(params.get("status"));
+
+        this.E_F = params.get("E_F") == null ? 2.5 : Double.valueOf(params.get("E_F"));
+        this.interval = params.get("interval") == null ? 0d : Double.valueOf(params.get("interval"));
+
         this.created_time = params.get("created_time");
         this.modified_time = params.get("modified_time");
         this.access_time = params.get("access_time");
-        this.new_count = Integer.valueOf(params.get("new_count"));
-        this.review_count = Integer.valueOf(params.get("review_count"));
     }
 
     public ContentValues getContentValues() {
         ContentValues values = new ContentValues();
-        values.put(BookTable.Cols.UUID, this.uuid);
-        values.put(BookTable.Cols.NAME, this.name);
-        values.put(BookTable.Cols.DESC, this.desc);
-        values.put(BookTable.Cols.STATUS, String.valueOf(this.status));
-        values.put(BookTable.Cols.CREATED_TIME, this.created_time);
-        values.put(BookTable.Cols.MODIFIED_TIME, this.modified_time);
-        values.put(BookTable.Cols.ACCESS_TIME, this.access_time);
-        values.put(BookTable.Cols.NEW_COUNT, String.valueOf(this.new_count));
-        values.put(BookTable.Cols.REVIEW_COUNT, String.valueOf(this.review_count));
+        values.put(NoteDbSchema.NoteTable.Cols.UUID, this.uuid);
+        values.put(NoteDbSchema.NoteTable.Cols.BOOK_UUID, this.book_uuid);
+        values.put(NoteDbSchema.NoteTable.Cols.FRONT, this.front);
+        values.put(NoteDbSchema.NoteTable.Cols.BACK, this.back);
+        values.put(NoteDbSchema.NoteTable.Cols.STATUS, String.valueOf(this.status));
+        values.put(NoteDbSchema.NoteTable.Cols.E_F, String.valueOf(this.E_F));
+        values.put(NoteDbSchema.NoteTable.Cols.INTERVAL, String.valueOf(this.interval));
+        values.put(NoteDbSchema.NoteTable.Cols.CREATED_TIME, this.created_time);
+        values.put(NoteDbSchema.NoteTable.Cols.MODIFIED_TIME, this.modified_time);
+        values.put(NoteDbSchema.NoteTable.Cols.ACCESS_TIME, this.access_time);
         return values;
     }
 
@@ -59,20 +65,28 @@ public class Book {
         this.uuid = uuid;
     }
 
-    public String getName() {
-        return name;
+    public String getBook_uuid() {
+        return book_uuid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBook_uuid(String book_uuid) {
+        this.book_uuid = book_uuid;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getFront() {
+        return front;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setFront(String front) {
+        this.front = front;
+    }
+
+    public String getBack() {
+        return back;
+    }
+
+    public void setBack(String back) {
+        this.back = back;
     }
 
     public int getStatus() {
@@ -81,6 +95,22 @@ public class Book {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Double getE_F() {
+        return E_F;
+    }
+
+    public void setE_F(Double e_F) {
+        E_F = e_F;
+    }
+
+    public Double getInterval() {
+        return interval;
+    }
+
+    public void setInterval(Double interval) {
+        this.interval = interval;
     }
 
     public String getCreated_time() {
@@ -107,23 +137,7 @@ public class Book {
         this.access_time = access_time;
     }
 
-    public int getNew_count() {
-        return new_count;
-    }
-
-    public void setNew_count(int new_count) {
-        this.new_count = new_count;
-    }
-
-    public int getReview_count() {
-        return review_count;
-    }
-
-    public void setReview_count(int review_count) {
-        this.review_count = review_count;
-    }
-
-    public static Book cursorToBook(Cursor cursor) {
+    public static Note cursorToNote(Cursor cursor) {
         int cols_len = cursor.getColumnCount();
         Map<String, String> map = new HashMap<>();
         while (cursor.moveToNext()) {
@@ -135,11 +149,11 @@ public class Book {
             }
         }
         if (map.size() == 0) return null;
-        return new Book(map);
+        return new Note(map);
     }
 
-    public static List<Book> cursorToBookList(Cursor cursor) {
-        List<Book> list = new ArrayList<>();
+    public static List<Note> cursorToNoteList(Cursor cursor) {
+        List<Note> list = new ArrayList<>();
         Map<String, String> map = new HashMap<>();
 
         int cols_len = cursor.getColumnCount();
@@ -150,7 +164,7 @@ public class Book {
                 if (cols_value == null) cols_value = "";
                 map.put(cols_name, cols_value);
             }
-            if (map.size() != 0) list.add(new Book(map));
+            if (map.size() != 0) list.add(new Note(map));
         }
         return list;
     }
