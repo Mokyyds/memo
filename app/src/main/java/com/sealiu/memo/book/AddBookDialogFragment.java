@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.sealiu.memo.R;
+import com.sealiu.memo.book.Service.BookService;
+import com.sealiu.memo.book.Service.Impl.BookDao;
+import com.sealiu.memo.book.model.Book;
 
 public class AddBookDialogFragment extends DialogFragment {
 
@@ -62,17 +66,27 @@ public class AddBookDialogFragment extends DialogFragment {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final View view = inflater.inflate(R.layout.dialog_add_book, null);
-
         builder.setView(view);
+
+        final EditText bookNameET = (EditText) view.findViewById(R.id.book_name);
+        final EditText bookDescET = (EditText) view.findViewById(R.id.book_desc);
+        final CheckBox status = (CheckBox) view.findViewById(R.id.is_active);
+
+        // 检测是否已经存在 status == 1 的词库, 如果有则不允许添加
+        BookService bookService = new BookDao(getActivity());
+        Book activeBook = bookService.queryBook(true, null, "status = ?", new String[]{"1"}, null, "1");
+        if (activeBook != null) {
+            status.setChecked(false);
+            status.setClickable(false);
+            int disabledColor = ContextCompat.getColor(getActivity(), R.color.disabledText);
+            status.setTextColor(disabledColor);
+        }
 
         // Add action buttons
         builder.setPositiveButton(R.string.positive_btn, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                EditText bookNameET = (EditText) view.findViewById(R.id.book_name);
-                EditText bookDescET = (EditText) view.findViewById(R.id.book_desc);
-                CheckBox status = (CheckBox) view.findViewById(R.id.is_active);
 
                 String bookName = String.valueOf(bookNameET.getText());
                 String bookDesc = String.valueOf(bookDescET.getText());

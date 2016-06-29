@@ -138,10 +138,13 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String name, String desc, String status) {
+
+        BookService bookService = new BookDao(MainActivity.this);
+
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String now = sdf.format(new Date());
 
-        BookService bookService = new BookDao(MainActivity.this);
         Map<String, String> map = new HashMap<>();
         UUID uuid = UUID.randomUUID();
         map.put("uuid", uuid.toString());
