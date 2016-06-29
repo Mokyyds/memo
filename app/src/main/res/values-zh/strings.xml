@@ -3,9 +3,8 @@
     <string name="action_settings">设置</string>
     <string name="add_a_book">添加词库</string>
     <string name="add_a_note">添加笔记</string>
-    <string name="add_book_fail_toast">失败，请重试！</string>
-    <string name="add_book_success_toast">词库已成功添加！</string>
-    <string name="all_book_btn">查看所有词库</string>
+    <string name="add_success_toast">添加成功！</string>
+    <string name="change_active_book_btn">切换学习词库</string>
     <string name="input_book_desc">词库描述</string>
     <string name="input_book_name">词库名称</string>
     <string name="input_status">是否设置为正在学习？</string>
@@ -22,9 +21,9 @@
     <string name="positive_btn">确定</string>
     <string name="setting_btn">设置</string>
     <string name="task_title">今日任务</string>
-    <string name="add_book_cancel_toast">取消添加词库</string>
+    <string name="add_cancel_toast">取消添加</string>
     <string name="statistic_toolbar_title">统计</string>
-    <string name="books_toolbar_title">词库</string>
+    <string name="books_toolbar_title">词库列表</string>
     <string name="nav_drawer_home">首页</string>
     <string name="nav_drawer_settings">设置</string>
     <string name="nav_drawer_other">其他</string>
@@ -33,4 +32,8 @@
     <string name="nav_drawer_Statistic">统计</string>
     <string name="nav_drawer_Books">词库</string>
     <string name="book_detail_toolbar_title">词库信息</string>
+    <string name="not_blank_validation">正反面不能同时为空</string>
+    <string name="add_fail_toast">失败，请重试！</string>
+    <string name="book">词库</string>
+    <string name="section_format">第 %1$d 部分</string>
 </resources>

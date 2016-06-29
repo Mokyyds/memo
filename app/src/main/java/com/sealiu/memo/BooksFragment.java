@@ -27,10 +27,6 @@ import java.util.List;
  */
 public class BooksFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +39,18 @@ public class BooksFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_books, container, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.books_recycler_view);
+        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.books_recycler_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter
-        mAdapter = new MyAdapter(getActivity(), getDataSet());
+        RecyclerView.Adapter mAdapter = new MyAdapter(getActivity(), getDataSet());
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

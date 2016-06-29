@@ -19,6 +19,10 @@ import com.sealiu.memo.book.AddBookDialogFragment;
 import com.sealiu.memo.book.Service.BookService;
 import com.sealiu.memo.book.Service.Impl.BookDao;
 import com.sealiu.memo.book.model.Book;
+import com.sealiu.memo.note.AddNoteDialogFragment;
+import com.sealiu.memo.note.Service.Impl.NoteDao;
+import com.sealiu.memo.note.Service.NoteService;
+import com.sealiu.memo.note.model.Note;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +31,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AddBookDialogFragment.AddBookDialogListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        AddBookDialogFragment.AddBookDialogListener,
+        AddNoteDialogFragment.AddNoteDialogListener {
 
     private static final String TAG = "MainActivity";
     private FragmentManager fm = getFragmentManager();
@@ -163,12 +169,12 @@ public class MainActivity extends AppCompatActivity
         if (id != -1)
             Toast.makeText(
                     MainActivity.this,
-                    R.string.add_book_success_toast,
+                    R.string.add_success_toast,
                     Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(
                     MainActivity.this,
-                    R.string.add_book_fail_toast,
+                    R.string.add_fail_toast,
                     Toast.LENGTH_SHORT).show();
         MainFragment mainFragment = (MainFragment) getFragmentManager().findFragmentByTag("MAIN");
         mainFragment.updateView();
@@ -176,6 +182,61 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
-        Toast.makeText(MainActivity.this, R.string.add_book_cancel_toast, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, R.string.add_cancel_toast, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAddNoteDialogPositiveClick(DialogFragment dialog, String front, String back, String targetBook) {
+        if (targetBook.equals("")) {
+            Toast.makeText(
+                    MainActivity.this,
+                    R.string.no_activeBook_suggest,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (front.equals("") && back.equals("")) {
+            Toast.makeText(
+                    MainActivity.this,
+                    R.string.not_blank_validation,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        NoteService noteService = new NoteDao(MainActivity.this);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String now = sdf.format(new Date());
+
+        Map<String, String> map = new HashMap<>();
+        UUID uuid = UUID.randomUUID();
+        map.put("uuid", uuid.toString());
+        map.put("front", front);
+        map.put("back", back);
+        map.put("status", "0");
+        map.put("E_F", "2.5");
+        map.put("interval", "0");
+        map.put("created_time", now);
+        map.put("modified_time", now);
+        map.put("access_time", "");
+
+        ContentValues values = new Note(map).getContentValues();
+        long id = noteService.addNote(values);
+
+        if (id != -1)
+            Toast.makeText(
+                    MainActivity.this,
+                    R.string.add_success_toast,
+                    Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(
+                    MainActivity.this,
+                    R.string.add_fail_toast,
+                    Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onAddNoteDialogNegativeClick(DialogFragment dialog) {
+        Toast.makeText(MainActivity.this, R.string.add_cancel_toast, Toast.LENGTH_SHORT).show();
     }
 }

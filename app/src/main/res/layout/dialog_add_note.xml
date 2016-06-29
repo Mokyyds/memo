@@ -57,15 +57,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Book:  "
+                android:text="@string/book"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@color/primaryText" />
+                android:textColor="@color/primaryText"
+                android:layout_marginEnd="8dp" />
 
             <TextView
+                android:id="@+id/target_book"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="memoBook name" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 

@@ -27,7 +27,7 @@
     <string name="no_activeBook_suggest">
         You can view all the memoBooks, and select one of these books.
     </string>
-    <string name="all_book_btn">All my memoBooks</string>
+    <string name="change_active_book_btn">Change</string>
     <string name="no_desc">No Description</string>
 
     <!--Custom dialog-->
@@ -36,13 +36,18 @@
     <string name="input_status">is active?</string>
     <string name="positive_btn">OK</string>
     <string name="negative_btn">Cancel</string>
-    <string name="add_book_success_toast">memoBook added!</string>
-    <string name="add_book_fail_toast">Failed, try again!</string>
-    <string name="add_book_cancel_toast">Failed, try again!</string>
+    <string name="add_success_toast">Added!</string>
+    <string name="add_cancel_toast">Canceled.</string>
     <string name="statistic_toolbar_title">Statistic</string>
     <string name="books_toolbar_title">Book List</string>
+    <string name="add_fail_toast">Failed, try again!</string>
+    <string name="not_blank_validation">Front and Back shouldn\'t be empty at the same time.</string>
+
+    <!--Book List-->
 
     <!--Book Detail-->
     <string name="book_detail_toolbar_title">Book Detail</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="book">Book</string>
+
 </resources>
