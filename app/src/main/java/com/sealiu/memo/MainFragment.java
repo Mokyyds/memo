@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.sealiu.memo.book.AddBookDialogFragment;
 import com.sealiu.memo.book.Service.BookService;
 import com.sealiu.memo.book.Service.Impl.BookDao;
@@ -42,7 +43,9 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.app_name);
 
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        final View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        final FloatingActionsMenu floatingActionsMenu = (FloatingActionsMenu) view.findViewById(R.id.floating_actions_menu);
 
         FloatingActionButton libFab = (FloatingActionButton) view.findViewById(R.id.lib_add_fab);
         libFab.setOnClickListener(new View.OnClickListener() {
@@ -50,16 +53,18 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 new AddBookDialogFragment()
                         .show(getFragmentManager(), "ADD_BOOK");
+                floatingActionsMenu.collapse();
             }
 
         });
 
         // FloatingActionButton
-        FloatingActionButton noteFab = (FloatingActionButton) view.findViewById(R.id.note_add_fab);
+        final FloatingActionButton noteFab = (FloatingActionButton) view.findViewById(R.id.note_add_fab);
         noteFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AddNoteDialogFragment().show(getFragmentManager(), "ADD_NOTE");
+                floatingActionsMenu.collapse();
             }
         });
 
